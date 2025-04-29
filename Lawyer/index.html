@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layer Firm - 3D Design & Architecture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        /* Reset and basic styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        nav {
+            width: 100%;
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 15px 30px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        #scene-container {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Overlay Content */
+        .overlay {
+            position: relative;
+            margin-top: 80px;
+            text-align: center;
+            color: white;
+            padding: 50px 20px;
+        }
+        .main-title {
+            font-size: 3rem;
+            font-weight: 700;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+        }
+        .intro-text {
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #eeeeee;
+            text-shadow: 1px 1px 5px rgba(0,0,0,0.3);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 20px;
+            text-align: center;
+        }
+        .services-section {
+            background: #fff;
+        }
+        .services-title {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 40px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .service-card {
+            background: #ecf0f1;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .service-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+        .service-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        .service-description {
+            font-size: 1rem;
+            color: #666;
+        }
+
+        /* Contact */
+        .contact-section {
+            background: #34495e;
+            color: white;
+        }
+        .contact-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .form-group {
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
+        }
+        .btn-primary {
+            background: #3498db;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 6px;
+            color: white;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .btn-primary:hover {
+            background: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .intro-text {
+                font-size: 1rem;
+            }
+            .services-title, .contact-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <div class="nav-brand">Layer Firm</div>
+        <div class="nav-links">
+            <a href="#services">Services</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- 3D Scene -->
+    <div id="scene-container"></div>
+
+    <!-- Overlay Text -->
+    <div class="overlay">
+        <h1 class="main-title">Layer Firm</h1>
+        <p class="subtitle">3D Design & Architecture</p>
+        <p class="intro-text">
+            We are a creative design studio specializing in innovative 3D solutions for architecture and beyond.  
+            We blend art and technology to bring your visions to life.
+        </p>
+    </div>
+
+    <!-- Services Section -->
+    <section id="services" class="services-section">
+        <h2 class="services-title">Our Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🏗️</div>
+                <h3 class="service-title">Architectural Visualization</h3>
+                <p class="service-description">High-quality 3D renderings and animations for architectural projects.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📐</div>
+                <h3 class="service-title">3D Modeling</h3>
+                <p class="service-description">Custom 3D modeling for products, interiors, and environments.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🖥️</div>
+                <h3 class="service-title">Interactive Experiences</h3>
+                <p class="service-description">Immersive 3D experiences for web and virtual reality.</p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎨</div>
+                <h3 class="service-title">Design Development</h3>
+                <p class="service-description">Collaborative design process from concept to final product.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <h2 class="contact-title">Contact Us</h2>
+        <form class="contact-form">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" id="name" name="name" type="text" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input class="form-control" id="email" name="email" type="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea class="form-control" id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn-primary">Send Message</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        &copy; 2024 Layer Firm | Designed with ❤️ for Architecture & 3D Art
+    </footer>
+
+    <!-- Three.js Animation -->
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('scene-container').appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 0.8);
+        pointLight.position.set(10, 10, 10);
+        scene.add(pointLight);
+
+        // Geometry
+        const geometry = new THREE.TorusKnotGeometry(2, 0.6, 100, 16);
+        const material = new THREE.MeshPhysicalMaterial({ 
+            color: 0x3498db, 
+            metalness: 0.7, 
+            roughness: 0.3, 
+            clearcoat: 0.8, 
+            reflectivity: 0.6 
+        });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        scene.add(torusKnot);
+
+        camera.position.z = 8;
+
+        // Animate
+        function animate() {
+            requestAnimationFrame(animate);
+            torusKnot.rotation.x += 0.01;
+            torusKnot.rotation.y += 0.01;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+
+</body>
+</html>

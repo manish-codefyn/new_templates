@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Homes - Modern Real Estate</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Basic Styling & Font */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa; /* Light background */
+            color: #343a40; /* Dark text */
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 600; /* Slightly bolder headings */
+        }
+
+        /* Custom Theme Colors (Example) */
+        :root {
+            --bs-primary: #005ea4; /* Example primary color */
+            --bs-secondary: #6c757d;
+            --bs-light: #f8f9fa;
+            --bs-dark: #212529;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--bs-primary) !important;
+        }
+        .navbar-nav .nav-link {
+            color: #495057 !important; /* Slightly lighter nav text */
+            font-weight: 500;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-link.active,
+        .navbar-nav .nav-link:hover {
+            color: var(--bs-primary) !important; /* Primary color on hover/active */
+        }
+        .navbar-toggler {
+            border: none;
+        }
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+
+        /* Hero Section Styling */
+        .hero-section {
+            background: linear-gradient(rgba(0, 94, 164, 0.7), rgba(0, 40, 80, 0.8)), url('https://placehold.co/1920x800/cccccc/666666?text=Modern+Building+Facade') no-repeat center center;
+            background-size: cover;
+            padding: 120px 0;
+            color: white;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .search-form {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .search-form .form-control, .search-form .form-select {
+            border-radius: 0.3rem;
+            border: 1px solid #ced4da;
+        }
+        .search-form .btn-primary {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .search-form .btn-primary:hover {
+            background-color: #004a80; /* Darker primary on hover */
+            border-color: #004a80;
+        }
+
+        /* Section Padding & Headings */
+        section {
+            padding: 80px 0;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: var(--bs-dark);
+            margin-bottom: 10px;
+        }
+        .section-title::after { /* Underline effect */
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background-color: var(--bs-primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Featured Listings Card Styling */
+        .card.property-card {
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%; /* Ensure cards in a row have same height */
+            display: flex;
+            flex-direction: column;
+        }
+        .card.property-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+        .card.property-card .card-img-top {
+            height: 200px; /* Fixed height for images */
+            object-fit: cover; /* Ensure image covers the area */
+        }
+        .card.property-card .card-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; /* Allow body to grow */
+            padding: 1.5rem;
+        }
+        .card.property-card .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--bs-primary);
+            margin-bottom: 0.5rem;
+        }
+        .card.property-card .card-text.location {
+            color: var(--bs-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        .card.property-card .property-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: auto; /* Push details to the bottom */
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+        .card.property-card .property-details span {
+            font-size: 0.9rem;
+            color: #495057;
+            display: inline-flex;
+            align-items: center;
+        }
+        .card.property-card .property-details span i {
+            margin-right: 5px;
+            color: var(--bs-primary);
+        }
+        .card.property-card .price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--bs-dark);
+        }
+
+        /* About Section */
+        .about-section img {
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .about-section p {
+            line-height: 1.8;
+            color: #495057;
+        }
+
+        /* Testimonials Section */
+        .testimonials-section {
+            background-color: #e9ecef; /* Slightly different background */
+        }
+        .testimonial-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            text-align: center;
+        }
+        .testimonial-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            object-fit: cover;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .testimonial-card blockquote {
+            font-style: italic;
+            color: #495057;
+            margin-bottom: 1rem;
+        }
+        .testimonial-card cite {
+            font-weight: 600;
+            color: var(--bs-primary);
+            font-style: normal;
+        }
+
+        /* Contact Section */
+        .contact-section .form-control, .contact-section .form-select {
+            margin-bottom: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 0.3rem;
+        }
+        .contact-section .btn-primary {
+            background-color: var(--bs-primary);
+            border-color: var(--bs-primary);
+            padding: 0.75rem 2rem;
+            font-weight: 500;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .contact-section .btn-primary:hover {
+            background-color: #004a80;
+            border-color: #004a80;
+        }
+        .contact-info i {
+            font-size: 1.5rem;
+            color: var(--bs-primary);
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .contact-info p {
+            margin-bottom: 1rem;
+            color: #495057;
+        }
+
+        /* Footer Styling */
+        .footer {
+            background-color: var(--bs-dark);
+            color: rgba(255, 255, 255, 0.7);
+            padding: 40px 0;
+            font-size: 0.9rem;
+        }
+        .footer h5 {
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        .footer a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer a:hover {
+            color: white;
+        }
+        .footer .list-unstyled li {
+            margin-bottom: 0.5rem;
+        }
+        .footer .social-icons a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            transition: color 0.3s ease;
+        }
+        .footer .social-icons a:hover {
+            color: var(--bs-primary);
+        }
+        .footer .text-center {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 20px;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            .hero-section p {
+                font-size: 1rem;
+            }
+            .search-form {
+                padding: 1rem;
+            }
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .contact-info {
+                margin-top: 2rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-house-heart-fill me-2"></i>Dream Homes
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#featured">Listings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About Us</a>
+                    </li>
+                     <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section">
+        <div class="container">
+            <h1>Find Your Perfect Home</h1>
+            <p>Search through thousands of listings to find the property that suits you.</p>
+            <form class="search-form row g-3 align-items-center">
+                <div class="col-md-4">
+                    <input type="text" class="form-control" placeholder="Enter location (City, Zip)...">
+                </div>
+                <div class="col-md-3">
+                    <select class="form-select">
+                        <option selected>Property Type</option>
+                        <option value="1">Apartment</option>
+                        <option value="2">House</option>
+                        <option value="3">Villa</option>
+                        <option value="4">Commercial</option>
+                    </select>
+                </div>
+                 <div class="col-md-3">
+                    <select class="form-select">
+                        <option selected>Price Range</option>
+                        <option value="1">$100k - $300k</option>
+                        <option value="2">$300k - $600k</option>
+                        <option value="3">$600k - $1M</option>
+                        <option value="4">$1M+</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100"><i class="bi bi-search me-1"></i> Search</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section id="featured" class="featured-listings">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Properties</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card property-card h-100">
+                        <img src="https://placehold.co/600x400/005ea4/white?text=Modern+Villa" class="card-img-top" alt="Property Image" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/666666?text=Image+Not+Found'">
+                        <div class="card-body">
+                            <h5 class="card-title">Luxury Villa with Ocean View</h5>
+                            <p class="card-text location"><i class="bi bi-geo-alt-fill me-1"></i> Miami Beach, FL</p>
+                            <p class="card-text description mb-3">Beautiful 5-bedroom villa with stunning ocean views, private pool, and modern amenities.</p>
+                            <div class="property-details">
+                                <div>
+                                    <span class="me-3"><i class="bi bi-bed-fill"></i> 5 Beds</span>
+                                    <span><i class="bi bi-droplet-fill"></i> 4 Baths</span>
+                                </div>
+                                <span class="price">$2,500,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                     <div class="card property-card h-100">
+                        <img src="https://placehold.co/600x400/28a745/white?text=Cozy+Apartment" class="card-img-top" alt="Property Image" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/666666?text=Image+Not+Found'">
+                        <div class="card-body">
+                            <h5 class="card-title">Downtown Cozy Apartment</h5>
+                            <p class="card-text location"><i class="bi bi-geo-alt-fill me-1"></i> Austin, TX</p>
+                            <p class="card-text description mb-3">Charming 2-bedroom apartment in the heart of downtown, close to shops and restaurants.</p>
+                            <div class="property-details">
+                                <div>
+                                    <span class="me-3"><i class="bi bi-bed-fill"></i> 2 Beds</span>
+                                    <span><i class="bi bi-droplet-fill"></i> 2 Baths</span>
+                                </div>
+                                <span class="price">$450,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                     <div class="card property-card h-100">
+                        <img src="https://placehold.co/600x400/ffc107/black?text=Suburban+House" class="card-img-top" alt="Property Image" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/666666?text=Image+Not+Found'">
+                        <div class="card-body">
+                            <h5 class="card-title">Spacious Suburban Family Home</h5>
+                            <p class="card-text location"><i class="bi bi-geo-alt-fill me-1"></i> Denver, CO</p>
+                            <p class="card-text description mb-3">Large family home with a big backyard, perfect for families, located in a quiet suburb.</p>
+                            <div class="property-details">
+                                <div>
+                                    <span class="me-3"><i class="bi bi-bed-fill"></i> 4 Beds</span>
+                                    <span><i class="bi bi-droplet-fill"></i> 3 Baths</span>
+                                </div>
+                                <span class="price">$780,000</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section bg-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>About Dream Homes</h2>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://placehold.co/600x400/6c757d/white?text=Our+Team" class="img-fluid rounded" alt="About Us Image" onerror="this.onerror=null; this.src='https://placehold.co/600x400/cccccc/666666?text=Image+Not+Found'">
+                </div>
+                <div class="col-lg-6">
+                    <h3>Your Trusted Partner in Real Estate</h3>
+                    <p>At Dream Homes, we believe that finding the perfect home is more than just a transaction; it's the beginning of a new chapter. With years of experience and a deep understanding of the market, our dedicated team is here to guide you every step of the way.</p>
+                    <p>We leverage cutting-edge technology and personalized service to match you with properties that meet your unique needs and aspirations. Whether you're buying, selling, or investing, trust Dream Homes to make your real estate journey seamless and successful.</p>
+                    <a href="#contact" class="btn btn-outline-primary mt-3">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>What Our Clients Say</h2>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="testimonial-card">
+                        <img src="https://placehold.co/100x100/007bff/white?text=Client+1" alt="Client 1" class="rounded-circle" onerror="this.onerror=null; this.src='https://placehold.co/100x100/cccccc/666666?text=?'">
+                        <blockquote>
+                            "Dream Homes made finding our first home such a breeze! Their agents were knowledgeable and incredibly patient throughout the process."
+                        </blockquote>
+                        <cite>Sarah & Tom L.</cite>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                     <div class="testimonial-card">
+                        <img src="https://placehold.co/100x100/28a745/white?text=Client+2" alt="Client 2" class="rounded-circle" onerror="this.onerror=null; this.src='https://placehold.co/100x100/cccccc/666666?text=?'">
+                        <blockquote>
+                            "Selling our property was quick and efficient thanks to the Dream Homes team. They handled everything professionally."
+                        </blockquote>
+                        <cite>Michael B.</cite>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                     <div class="testimonial-card">
+                        <img src="https://placehold.co/100x100/ffc107/black?text=Client+3" alt="Client 3" class="rounded-circle" onerror="this.onerror=null; this.src='https://placehold.co/100x100/cccccc/666666?text=?'">
+                        <blockquote>
+                            "As an investor, I rely on Dream Homes for market insights and great deals. They consistently deliver excellent results."
+                        </blockquote>
+                        <cite>Jennifer K.</cite>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section bg-white">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <form>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Your Name" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="email" class="form-control" placeholder="Your Email" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="tel" class="form-control" placeholder="Your Phone (Optional)">
+                        </div>
+                        <div class="mb-3">
+                            <textarea class="form-control" rows="5" placeholder="Your Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+                <div class="col-lg-6 contact-info ps-lg-5 mt-4 mt-lg-0">
+                     <h3>Contact Information</h3>
+                     <p>Reach out to us through any of the following methods:</p>
+                     <p><i class="bi bi-geo-alt-fill"></i> 123 Real Estate Ave, Suite 500, Dream City, DC 12345</p>
+                     <p><i class="bi bi-telephone-fill"></i> (123) 456-7890</p>
+                     <p><i class="bi bi-envelope-fill"></i> info@dreamhomes.com</p>
+                     <p><i class="bi bi-clock-fill"></i> Mon - Fri: 9:00 AM - 6:00 PM</p>
+                     <div class="social-icons mt-4">
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <h5><i class="bi bi-house-heart-fill me-2"></i>Dream Homes</h5>
+                    <p>Your journey to finding the perfect home starts here. We are committed to providing exceptional service and expertise.</p>
+                     <div class="social-icons mt-3">
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                     </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#featured">Listings</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5>Services</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#">Property Buying</a></li>
+                        <li><a href="#">Property Selling</a></li>
+                        <li><a href="#">Rentals</a></li>
+                        <li><a href="#">Mortgage Assistance</a></li>
+                        <li><a href="#">Property Management</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+                    <h5>Contact Us</h5>
+                     <ul class="list-unstyled">
+                        <li><i class="bi bi-geo-alt-fill me-2"></i> 123 Real Estate Ave, Dream City</li>
+                        <li><i class="bi bi-telephone-fill me-2"></i> (123) 456-7890</li>
+                        <li><i class="bi bi-envelope-fill me-2"></i> info@dreamhomes.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                &copy; <span id="current-year"></span> Dream Homes. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

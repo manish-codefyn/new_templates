@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Management Firm - 3D Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+
+        #scene-container {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li {
+            margin: 0 20px;
+        }
+
+        header nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        header nav ul li a:hover {
+            color: #4CAF50;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #4CAF50;
+            margin-right: 50px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: #333;
+            margin-top: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #4CAF50;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 70%;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .cta-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            pointer-events: auto;
+        }
+
+        .cta-button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        #services {
+            background-color: #fff;
+        }
+
+        #services .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        #services .service-card {
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        #services .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        #services .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #4CAF50;
+        }
+
+        #services .service-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        #services .service-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        #testimonials {
+            background-color: #f5f5f5;
+        }
+
+        #testimonials .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 1200px;
+            padding: 0 20px;
+        }
+
+        #testimonials .testimonial-card {
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        #testimonials .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        #testimonials .testimonial-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #testimonials .testimonial-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #testimonials .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #555;
+            font-style: italic;
+        }
+
+        #contact {
+            background-color: #f5f5f5;
+        }
+
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        #contact .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #contact .form-group label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #contact .form-control {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        #contact .form-control:focus {
+            outline: none;
+            border-color: #4CAF50;
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
+        }
+
+        #contact textarea.form-control {
+            resize: vertical;
+            height: 150px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header nav ul li {
+                margin: 0 10px;
+            }
+
+            header nav ul li a {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .section p {
+                font-size: 1rem;
+                max-width: 90%;
+            }
+
+            .cta-button {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+
+            #services .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #services .service-card {
+                padding: 20px;
+            }
+
+            #services .service-title {
+                font-size: 1.5rem;
+            }
+
+            #services .service-description {
+                font-size: 0.9rem;
+            }
+
+            #testimonials .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #testimonials .testimonial-card {
+                padding: 20px;
+            }
+
+            #testimonials .testimonial-name {
+                font-size: 1rem;
+            }
+
+            #testimonials .testimonial-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="scene-container"></div>
+    <div class="overlay">
+        <header>
+            <nav>
+                <a href="#" class="logo">EventPro</a>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="home" class="section">
+            <h2>Turning Your Dreams into Reality</h2>
+            <p>
+                We are a full-service event management firm dedicated to creating unforgettable experiences.
+                From corporate events to weddings, we handle every detail with precision and care.
+            </p>
+            <a href="#contact" class="cta-button">Get Started</a>
+        </section>
+    </div>
+
+    <section id="services" class="section">
+        <h2>Our Services</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">🎉</div>
+                <h3 class="service-title">Event Planning</h3>
+                <p class="service-description">
+                    Full-service event planning for all types of occasions.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎈</div>
+                <h3 class="service-title">Venue Selection</h3>
+                <p class="service-description">
+                    We help you find the perfect venue for your event.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"> decor</div>
+                <h3 class="service-title">Decor & Design</h3>
+                <p class="service-description">
+                    Stunning decor and design to create the perfect ambiance.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"> catering</div>
+                <h3 class="service-title">Catering</h3>
+                <p class="service-description">
+                    Delicious catering options tailored to your event.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"> 섭외 </div>
+                <h3 class="service-title">Entertainment</h3>
+                <p class="service-description">
+                    Top-notch entertainment to make your event memorable.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon"> 섭외 </div>
+                <h3 class="service-title">Logistics</h3>
+                <p class="service-description">
+                    Seamless logistics management for a stress-free event.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials" class="section">
+        <h2>Testimonials</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <img src="https://via.placeholder.com/100" alt="Client 1" class="testimonial-image">
+                <p class="testimonial-name">John Smith</p>
+                <p class="testimonial-text">
+                    EventPro exceeded our expectations! They made our wedding day perfect.
+                </p>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://via.placeholder.com/100" alt="Client 2" class="testimonial-image">
+                <p class="testimonial-name">Jane Doe</p>
+                <p class="testimonial-text">
+                    We've used EventPro for multiple corporate events, and they always deliver.
+                </p>
+            </div>
+            <div class="testimonial-card">
+                <img src="https://via.placeholder.com/100" alt="Client 3" class="testimonial-image">
+                <p class="testimonial-name">Mike Johnson</p>
+                <p class="testimonial-text">
+                    The team at EventPro is amazing. They are professional, creative, and dedicated.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" class="form-control" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="cta-button">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 EventPro. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.getElementById('scene-container').appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(10, 10, 5);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 1024;
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 20;
+        scene.add(directionalLight);
+
+        // 3D Geometry
+        const geometry = new THREE.BoxGeometry(5, 5, 5);
+        const material = new THREE.MeshPhysicalMaterial({
+            color: 0x4CAF50,
+            metalness: 0.8,
+            roughness: 0.2,
+            clearcoat: 1,
+            clearcoatRoughness: 0.1,
+            reflectivity: 0.7,
+        });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.castShadow = true;
+        cube.receiveShadow = true;
+        scene.add(cube);
+
+        const planeGeometry = new THREE.PlaneGeometry(50, 50);
+        const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xeeeeee, roughness: 0.9, metalness: 0.1 });
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.rotation.x = -Math.PI / 2;
+        plane.receiveShadow = true;
+        scene.add(plane);
+
+        // Camera Position
+        camera.position.z = 10;
+
+        // Orbit Controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.1;
+        controls.rotateSpeed = 0.5;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+            cube.rotation.z += 0.01;
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Responsive adjustments
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

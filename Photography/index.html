@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumina Studio | Modern Photography</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #6c63ff;
+            --secondary-color: #4d44db;
+            --dark-color: #2a2a2a;
+            --light-color: #f8f9fa;
+            --accent-color: #ff6584;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            color: var(--dark-color);
+        }
+        
+        .navbar {
+            transition: all 0.3s ease;
+            padding: 20px 0;
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            padding: 10px 0;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .hero-section {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1630&q=80') no-repeat center center/cover;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+        }
+        
+        .btn-outline-light {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-left: 15px;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 60px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .service-card {
+            padding: 30px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        
+        .portfolio-img {
+            transition: all 0.5s ease;
+        }
+        
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(108, 99, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        
+        .portfolio-item:hover .portfolio-img {
+            transform: scale(1.1);
+        }
+        
+        .testimonial-card {
+            padding: 30px;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin: 15px;
+        }
+        
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--primary-color);
+        }
+        
+        .team-card {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .team-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 5px solid white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .contact-icon {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-right: 15px;
+        }
+        
+        .form-control {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #eee;
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+            padding: 50px 0 20px;
+        }
+        
+        .social-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 99;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+    </style>
+</head>
+<body data-bs-spy="scroll" data-bs-target=".navbar">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">LUMINA</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#portfolio">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#team">Team</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="display-3 fw-bold mb-4">Capture Your Perfect Moments</h1>
+                <p class="lead mb-5">Professional photography studio specializing in portraits, weddings, and commercial photography. Let us tell your story through our lens.</p>
+                <a href="#contact" class="btn btn-primary">Book a Session</a>
+                <a href="#portfolio" class="btn btn-outline-light">View Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title">Our Services</h2>
+                    <p class="lead">We offer a wide range of professional photography services to meet all your needs.</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-camera"></i>
+                        </div>
+                        <h3>Portrait Photography</h3>
+                        <p>Beautifully crafted portraits that capture your personality and essence. Perfect for professional headshots or personal keepsakes.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-heart"></i>
+                        </div>
+                        <h3>Wedding Photography</h3>
+                        <p>Capture the magic of your special day with our artistic and unobtrusive wedding photography services.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-bag"></i>
+                        </div>
+                        <h3>Commercial Photography</h3>
+                        <p>High-quality product and commercial photography to elevate your brand and marketing materials.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-house"></i>
+                        </div>
+                        <h3>Real Estate Photography</h3>
+                        <p>Showcase properties in their best light with professional real estate photography that sells.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-camera-reels"></i>
+                        </div>
+                        <h3>Event Photography</h3>
+                        <p>Comprehensive coverage of corporate events, parties, and special occasions.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="bi bi-palette"></i>
+                        </div>
+                        <h3>Photo Editing</h3>
+                        <p>Professional photo retouching and editing services to perfect your images.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title">Our Portfolio</h2>
+                    <p class="lead">Explore our latest work and get inspired for your next photo session.</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Portrait" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white">Portrait Series</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Wedding" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white">Wedding Day</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1605000797499-95a51c5269ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Product" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white">Product Shoot</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Real Estate" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white">Real Estate</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Event" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white">Corporate Event</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="portfolio-item">
+                        <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1620&q=80" alt="Fashion" class="img-fluid portfolio-img">
+                        <div class="portfolio-overlay">
+                            <h3 class="text-white">Fashion Editorial</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">About Our Studio</h2>
+                    <p class="lead">Lumina Studio was founded in 2010 with a passion for capturing life's most precious moments.</p>
+                    <p>Our team of professional photographers brings years of experience and artistic vision to every project. We believe in creating images that tell stories and evoke emotions.</p>
+                    <p>With state-of-the-art equipment and a keen eye for detail, we deliver exceptional quality in every photograph. Our studio is designed to provide a comfortable and creative environment for all types of photo sessions.</p>
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                <span>Professional Equipment</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                <span>Creative Direction</span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                <span>High-Quality Editing</span>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <i class="bi bi-check-circle-fill text-primary me-2"></i>
+                                <span>Fast Delivery</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Our Team" class="img-fluid rounded">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title">Client Testimonials</h2>
+                    <p class="lead">Hear what our clients say about working with us.</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-12">
+                    <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <div class="testimonial-card text-center">
+                                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Client" class="testimonial-img">
+                                            <p class="mb-4">"Lumina Studio captured our wedding day perfectly! The photos are stunning and truly reflect the emotions of the day. We'll cherish them forever."</p>
+                                            <h5>Sarah Johnson</h5>
+                                            <p class="text-muted">Wedding Client</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <div class="testimonial-card text-center">
+                                            <img src="https://randomuser.me/api/portraits/men/41.jpg" alt="Client" class="testimonial-img">
+                                            <p class="mb-4">"The team at Lumina did an amazing job with our product photography. The images have significantly improved our online sales."</p>
+                                            <h5>Michael Chen</h5>
+                                            <p class="text-muted">Business Owner</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8">
+                                        <div class="testimonial-card text-center">
+                                            <img src="https://randomuser.me/api/portraits/women/63.jpg" alt="Client" class="testimonial-img">
+                                            <p class="mb-4">"I was nervous about my portrait session, but the photographer made me feel so comfortable. The results were better than I could have imagined!"</p>
+                                            <h5>Emily Rodriguez</h5>
+                                            <p class="text-muted">Portrait Client</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="py-5 bg-light">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title">Meet Our Team</h2>
+                    <p class="lead">Our talented photographers and creative professionals.</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="team-img">
+                        <h4>Jessica Parker</h4>
+                        <p class="text-muted">Lead Photographer</p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="team-img">
+                        <h4>David Wilson</h4>
+                        <p class="text-muted">Wedding Specialist</p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Team Member" class="team-img">
+                        <h4>Sophia Martinez</h4>
+                        <p class="text-muted">Commercial Photographer</p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="team-card">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Team Member" class="team-img">
+                        <h4>Ryan Thompson</h4>
+                        <p class="text-muted">Photo Editor</p>
+                        <div class="d-flex justify-content-center">
+                            <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="social-icon"><i class="bi bi-linkedin"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5">
+        <div class="container py-5">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="section-title">Get In Touch</h2>
+                    <p class="lead">Ready to book a session or have questions? Contact us today.</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-5">
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="bi bi-geo-alt"></i>
+                        </div>
+                        <div>
+                            <h5>Our Studio</h5>
+                            <p class="text-muted">123 Photography Ave, Creative District, CA 90210</p>
+                        </div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="bi bi-envelope"></i>
+                        </div>
+                        <div>
+                            <h5>Email Us</h5>
+                            <p class="text-muted">info@luminastudio.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="bi bi-phone"></i>
+                        </div>
+                        <div>
+                            <h5>Call Us</h5>
+                            <p class="text-muted">+1 (555) 123-4567</p>
+                        </div>
+                    </div>
+                    <div class="contact-info">
+                        <div class="contact-icon">
+                            <i class="bi bi-clock"></i>
+                        </div>
+                        <div>
+                            <h5>Working Hours</h5>
+                            <p class="text-muted">Mon-Fri: 9am - 6pm<br>Sat: 10am - 4pm<br>Sun: Closed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7">
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" placeholder="Your Name">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="email" class="form-control" placeholder="Your Email">
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Subject">
+                        <textarea class="form-control" rows="5" placeholder="Your Message"></textarea>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h3 class="text-white mb-4">LUMINA STUDIO</h3>
+                    <p>Capturing life's precious moments with creativity and passion. Professional photography services for all occasions.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-pinterest"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#home" class="text-white-50">Home</a></li>
+                        <li class="mb-2"><a href="#services" class="text-white-50">Services</a></li>
+                        <li class="mb-2"><a href="#portfolio" class="text-white-50">Portfolio</a></li>
+                        <li class="mb-2"><a href="#about" class="text-white-50">About</a></li>
+                        <li class="mb-2"><a href="#contact" class="text-white-50">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-4">
+                    <h5 class="text-white mb-4">Services</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white-50">Portrait Photography</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Wedding Photography</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Commercial Photography</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Event Photography</a></li>
+                        <li class="mb-2"><a href="#" class="text-white-50">Photo Editing</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5 class="text-white mb-4">Newsletter</h5>
+                    <p class="text-white-50">Subscribe to our newsletter for updates and special offers.</p>
+                    <form class="mt-3">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Your Email">
+                            <button class="btn btn-primary" type="submit">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <hr class="mt-4 mb-4" style="border-color: rgba(255,255,255,0.1);">
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-white-50 mb-0">&copy; 2023 Lumina Studio. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <p class="text-white-50 mb-0">Designed with <i class="bi bi-heart-fill text-danger"></i> by Lumina Team</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+        
+        // Back to top button
+        window.addEventListener('scroll', function() {
+            const backToTop = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTop.classList.add('active');
+            } else {
+                backToTop.classList.remove('active');
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 70,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wedding Planner - 3D Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f5;
+            overflow-x: hidden;
+        }
+        #scene-container {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li {
+            margin: 0 20px;
+        }
+
+        header nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        header nav ul li a:hover {
+            color: #ff6f61;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #ff6f61;
+            margin-right: 50px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: #333;
+            margin-top: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #ff6f61;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 70%;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .cta-button {
+            background-color: #ff6f61;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            pointer-events: auto;
+        }
+
+        .cta-button:hover {
+            background-color: #e56254;
+            transform: translateY(-2px);
+        }
+
+        #services {
+            background-color: #fff;
+        }
+
+        #services .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        #services .service-card {
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        #services .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        #services .service-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ff6f61;
+        }
+
+        #services .service-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        #services .service-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #555;
+        }
+
+        #contact {
+            background-color: #f5f5f5;
+        }
+
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        #contact .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #contact .form-group label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #contact .form-control {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        #contact .form-control:focus {
+            outline: none;
+            border-color: #ff6f61;
+            box-shadow: 0 0 5px rgba(255, 111, 97, 0.3);
+        }
+
+        #contact textarea.form-control {
+            resize: vertical;
+            height: 150px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header nav ul li {
+                margin: 0 10px;
+            }
+
+            header nav ul li a {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .section p {
+                font-size: 1rem;
+                max-width: 90%;
+            }
+
+            .cta-button {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+
+            #services .service-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #services .service-card {
+                padding: 20px;
+            }
+
+            #services .service-title {
+                font-size: 1.5rem;
+            }
+
+            #services .service-description {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="scene-container"></div>
+    <div class="overlay">
+        <header>
+            <nav>
+                <a href="#" class="logo">MarryUs</a>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="home" class="section">
+            <h2>Your Dream Wedding Starts Here</h2>
+            <p>
+                We are dedicated to creating unforgettable wedding experiences tailored to your unique style and vision.
+                Let us handle every detail, so you can relax and enjoy your special day.
+            </p>
+            <a href="#contact" class="cta-button">Get Started</a>
+        </section>
+    </div>
+
+    <section id="services" class="section">
+        <h2>Our Services</h2>
+        <div class="service-grid">
+            <div class="service-card">
+                <div class="service-icon">💍</div>
+                <h3 class="service-title">Full Wedding Planning</h3>
+                <p class="service-description">
+                    From venue selection to vendor coordination, we handle every aspect of your wedding.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">💐</div>
+                <h3 class="service-title">Venue & Decor</h3>
+                <p class="service-description">
+                    We help you find the perfect venue and create a stunning decor that reflects your style.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">📸</div>
+                <h3 class="service-title">Photography & Videography</h3>
+                <p class="service-description">
+                    Capture every precious moment with our professional photography and videography services.
+                </p>
+            </div>
+            <div class="service-card">
+                <div class="service-icon">🎶</div>
+                <h3 class="service-title">Entertainment</h3>
+                <p class="service-description">
+                    We provide top-notch entertainment, from live bands to DJs, to keep your guests dancing all night.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" class="form-control" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="cta-button">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 MarryUs. All rights reserved.</p>
+    </footer>
+
+    <script>
+       const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.getElementById('scene-container').appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(10, 10, 5);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 1024;
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 20;
+        scene.add(directionalLight);
+
+        // 3D Geometry
+        const geometry = new THREE.TorusKnotGeometry(3, 0.8, 256, 16, 2, 3);
+        const material = new THREE.MeshPhysicalMaterial({
+            color: 0xff6f61,
+            metalness: 0.9,
+            roughness: 0.2,
+            clearcoat: 1,
+            clearcoatRoughness: 0.1,
+            reflectivity: 0.7,
+        });
+        const torusKnot = new THREE.Mesh(geometry, material);
+        torusKnot.castShadow = true;
+        torusKnot.receiveShadow = true;
+        scene.add(torusKnot);
+
+        const planeGeometry = new THREE.PlaneGeometry(50, 50);
+        const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xeeeeee, roughness: 0.9, metalness: 0.1 });
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.rotation.x = -Math.PI / 2;
+        plane.receiveShadow = true;
+        scene.add(plane);
+
+        // Camera Position
+        camera.position.z = 15;
+
+        // Orbit Controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.1;
+        controls.rotateSpeed = 0.5;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            torusKnot.rotation.x += 0.01;
+            torusKnot.rotation.y += 0.01;
+            torusKnot.rotation.z += 0.01;
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Responsive adjustments
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

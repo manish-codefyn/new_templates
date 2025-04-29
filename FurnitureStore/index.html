@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Furniture Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .navbar-brand i {
+            width: 1.8rem;
+            height: 1.8rem;
+        }
+        .nav-link {
+            font-weight: 500;
+            color: #343a40;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: #007bff;
+        }
+        .hero-section {
+            background-image: url('https://images.unsplash.com/photo-1555041108-825829539e1d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+        }
+        .hero-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        .section-title h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #343a40;
+        }
+        .product-card {
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        .product-card img {
+            height: 250px;
+            object-fit: cover;
+        }
+        .product-card-body {
+            padding: 1.5rem;
+            text-align: center;
+        }
+        .product-card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #343a40;
+        }
+        .product-card-price {
+            font-size: 1rem;
+            color: #007bff;
+            margin-bottom: 0;
+        }
+        .tab-content .active {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .about-section {
+            padding: 4rem 0;
+            background-color: #f8f9fa;
+        }
+        .about-section h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 2rem;
+        }
+        .about-section p {
+            font-size: 1.1rem;
+            color: #495057;
+            line-height: 1.7;
+        }
+
+        .contact-section {
+            padding: 4rem 0;
+        }
+        .contact-section h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #343a40;
+            margin-bottom: 2rem;
+        }
+        .contact-form button {
+            width: 100%;
+        }
+        .footer {
+            background-color: #343a40;
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        .footer p {
+            font-size: 0.9rem;
+            margin-bottom: 0;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 992px) {
+            .navbar-nav {
+                text-align: center;
+            }
+            .hero-section h1 {
+                font-size: 2.5rem;
+            }
+            .hero-section p {
+                font-size: 1rem;
+            }
+            .product-card img {
+                height: 200px;
+            }
+        }
+        @media (max-width: 768px) {
+            .hero-section h1 {
+                font-size: 2rem;
+            }
+            .hero-section p {
+                font-size: 0.9rem;
+            }
+            .about-section h2, .contact-section h2 {
+                font-size: 2rem;
+            }
+        }
+        @media (max-width: 576px) {
+            .hero-section {
+                height: 90vh;
+            }
+            .hero-section h1 {
+                font-size: 1.75rem;
+            }
+            .hero-section p {
+                font-size: 0.85rem;
+            }
+            .btn-primary {
+                font-size: 1rem;
+                padding: 0.75rem 1rem;
+            }
+            .product-card img {
+                height: 180px;
+            }
+            .about-section p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-white shadow-sm fixed-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <i class="bi bi-house-fill me-2 text-primary"></i>
+                <h1 class="h4 mb-0 text-dark">FurniStore</h1>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <header id="home" class="hero-section">
+        <div class="container">
+            <h1>Discover Modern Furniture</h1>
+            <p>Elevate your space with our curated collection of contemporary furniture.</p>
+            <a href="#products" class="btn btn-primary">Shop Now</a>
+        </div>
+    </header>
+
+    <section id="products" class="section bg-light py-5">
+        <div class="container">
+            <div class="section-title">
+                <h2>Featured Products</h2>
+            </div>
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1614481576120-7f424484d315?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Sofa">
+                        <div class="card-body">
+                            <h3 class="product-card-title">Modern Sofa</h3>
+                            <p class="product-card-price">$499</p>
+                            <button class="btn btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1586040235989-4a3aad8e3471?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Chair">
+                        <div class="card-body">
+                            <h3 class="product-card-title">Elegant Chair</h3>
+                            <p class="product-card-price">$249</p>
+                            <button class="btn btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card product-card">
+                        <img src="https://images.unsplash.com/photo-1632161947152-b11545448981?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top" alt="Table">
+                        <div class="card-body">
+                            <h3 class="product-card-title">Coffee Table</h3>
+                            <p class="product-card-price">$199</p>
+                            <button class="btn btn-outline-secondary">View Details</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <a href="#" class="btn btn-primary">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about-section">
+        <div class="container">
+            <h2 class="text-center mb-5">About Us</h2>
+            <div class="row">
+                <div class="col-lg-6">
+                    <img src="https://images.unsplash.com/photo-1592947195245-be5505751591?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="About Us" class="img-fluid rounded">
+                </div>
+                <div class="col-lg-6">
+                    <p>Welcome to FurniStore, your destination for modern and stylish furniture. We believe that furniture is more than just functional; it's an expression of your personal style and a key element in creating a comfortable and inviting space.</p>
+                    <p>Our team of designers and curators works tirelessly to bring you a carefully selected collection of high-quality furniture from around the world. From sleek sofas and elegant chairs to contemporary tables and unique decor, we offer a range of pieces to suit every taste and lifestyle.</p>
+                    <p>At FurniStore, we are committed to providing exceptional customer service. We strive to make your shopping experience seamless and enjoyable.  Explore our collection and discover the perfect pieces to transform your home.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section bg-light py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Contact Us</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form class="contact-form">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea class="form-control" id="message" rows="4" placeholder="Enter your message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 FurniStore. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

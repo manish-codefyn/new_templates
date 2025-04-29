@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wanderlust Adventures | 3D Travel Agency</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #6c5ce7;
+            --secondary: #00cec9;
+            --dark: #2d3436;
+            --light: #f5f6fa;
+            --accent: #fd79a8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.5s ease;
+        }
+
+        nav.scrolled {
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 15px 100px;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+        }
+
+        nav.scrolled .logo {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        nav.scrolled .nav-links a {
+            color: var(--dark);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .book-now {
+            background-color: var(--accent);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .book-now:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(253, 121, 168, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 100px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(108, 92, 231, 0.8), rgba(0, 206, 201, 0.8));
+            z-index: -1;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            font-weight: 700;
+            color: white;
+            line-height: 1.2;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 18px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: white;
+            color: var(--primary);
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .world-container {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 600px;
+            height: 600px;
+        }
+
+        .world {
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            border-radius: 50%;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+            animation: rotate 60s linear infinite;
+            position: relative;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Destinations Section */
+        .destinations {
+            padding: 100px;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 40px;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: #777;
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .destination-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            height: 400px;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-image {
+            height: 60%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .destination-card:hover .card-image img {
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            padding: 20px;
+            height: 40%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+            color: var(--dark);
+        }
+
+        .card-content p {
+            color: #777;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .view-details {
+            display: inline-block;
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .view-details:hover {
+            color: var(--accent);
+        }
+
+        .badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* 3D Tour Section */
+        .tour-section {
+            padding: 100px;
+            background-color: var(--light);
+            position: relative;
+        }
+
+        .tour-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .tour-content {
+            flex: 1;
+        }
+
+        .tour-content h2 {
+            font-size: 40px;
+            color: var(--dark);
+            margin-bottom: 20px;
+        }
+
+        .tour-content p {
+            color: #777;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .tour-model {
+            flex: 1;
+            height: 500px;
+            background-color: #ddd;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .tour-model iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 100px;
+            background-color: white;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background-color: var(--light);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 80px;
+            color: rgba(108, 92, 231, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+
+        .testimonial-content {
+            margin-bottom: 20px;
+            color: #555;
+            font-style: italic;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 15px;
+        }
+
+        .author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .author-info h4 {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .author-info p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .rating {
+            color: #ffc107;
+            margin-top: 5px;
+        }
+
+        /* Newsletter */
+        .newsletter {
+            padding: 80px 100px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+        }
+
+        .newsletter h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .newsletter p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .newsletter-form {
+            display: flex;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 50px 0 0 50px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 0 30px;
+            border-radius: 0 50px 50px 0;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .newsletter-form button:hover {
+            background-color: #e84393;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 80px 100px 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-column h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-column p {
+            color: #bbb;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #bbb;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            nav, .hero, .destinations, .tour-section, .testimonials, .newsletter, footer {
+                padding-left: 50px;
+                padding-right: 50px;
+            }
+
+            .world-container {
+                width: 500px;
+                height: 500px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .tour-container {
+                flex-direction: column;
+            }
+
+            .world-container {
+                display: none;
+            }
+
+            .hero-content {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 20px 30px;
+            }
+
+            nav.scrolled {
+                padding: 15px 30px;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .destinations, .tour-section, .testimonials, .newsletter, footer {
+                padding: 60px 30px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+            }
+
+            .newsletter-form input {
+                border-radius: 50px;
+                margin-bottom: 10px;
+            }
+
+            .newsletter-form button {
+                border-radius: 50px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .destination-grid, .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 0 30px;
+            }
+
+            .section-title h2 {
+                font-size: 32px;
+            }
+        }
+
+        /* 3D Card Effect */
+        .card-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+        }
+
+        /* Animation */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav id="navbar">
+        <a href="#" class="logo">Wanderlust</a>
+        <div class="nav-links">
+            <a href="#destinations">Destinations</a>
+            <a href="#tours">3D Tours</a>
+            <a href="#testimonials">Testimonials</a>
+            <a href="#contact">Contact</a>
+            <a href="#" class="book-now">Book Now</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover the World in <span style="color: var(--accent);">3D</span></h1>
+            <p>Experience breathtaking destinations through our immersive 3D tours before you even pack your bags. Your dream vacation starts here.</p>
+            <a href="#destinations" class="cta-button">Explore Destinations</a>
+        </div>
+        <div class="world-container floating">
+            <div class="world"></div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section class="destinations" id="destinations">
+        <div class="section-title">
+            <h2>Popular Destinations</h2>
+            <p>Explore our handpicked selection of the world's most breathtaking locations</p>
+        </div>
+        <div class="destination-grid">
+            <div class="destination-card card-3d">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Santorini, Greece">
+                    <div class="badge">Popular</div>
+                </div>
+                <div class="card-content">
+                    <h3>Santorini, Greece</h3>
+                    <p>Whitewashed houses with blue domes overlooking the Aegean Sea</p>
+                    <div class="card-footer">
+                        <span class="price">$1,299</span>
+                        <a href="#" class="view-details">View Details →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card card-3d">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1538970272646-f61fabb3be8a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Kyoto, Japan">
+                </div>
+                <div class="card-content">
+                    <h3>Kyoto, Japan</h3>
+                    <p>Ancient temples, traditional tea houses, and stunning cherry blossoms</p>
+                    <div class="card-footer">
+                        <span class="price">$2,499</span>
+                        <a href="#" class="view-details">View Details →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="destination-card card-3d">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Bora Bora">
+                    <div class="badge">Luxury</div>
+                </div>
+                <div class="card-content">
+                    <h3>Bora Bora</h3>
+                    <p>Crystal clear lagoons and overwater bungalows in French Polynesia</p>
+                    <div class="card-footer">
+                        <span class="price">$3,799</span>
+                        <a href="#" class="view-details">View Details →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3D Tour Section -->
+    <section class="tour-section" id="tours">
+        <div class="section-title">
+            <h2>Immersive 3D Tours</h2>
+            <p>Explore destinations like never before with our cutting-edge 3D technology</p>
+        </div>
+        <div class="tour-container">
+            <div class="tour-content">
+                <h2>Step Inside Your Dream Destination</h2>
+                <p>Our revolutionary 3D tours allow you to virtually walk through hotels, landmarks, and neighborhoods before you book. Get a true sense of the space, views, and atmosphere to ensure it's perfect for your travel style.</p>
+                <p>With 360° navigation and realistic rendering, you'll feel like you're already there. Our technology works on any device, from smartphones to VR headsets for a fully immersive experience.</p>
+                <a href="#" class="cta-button" style="background-color: var(--primary); color: white;">Try Demo Tour</a>
+            </div>
+            <div class="tour-model">
+                <!-- This would be replaced with an actual 3D model embed in a real implementation -->
+                <iframe src="https://my.matterport.com/show/?m=5QGy9UjD4Zk" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+        <div class="section-title">
+            <h2>Traveler Stories</h2>
+            <p>Don't just take our word for it - hear from our satisfied customers</p>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    The 3D tour helped me choose the perfect hotel room with an ocean view. When I arrived, it was exactly as shown - no surprises! Wanderlust made planning effortless.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Sarah J.">
+                    </div>
+                    <div class="author-info">
+                        <h4>Sarah J.</h4>
+                        <p>Traveled to Santorini</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    As someone who gets anxious about travel, being able to 'walk through' the airport and my hotel beforehand was a game-changer. I felt like I'd been there before when I actually arrived.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Michael T.">
+                    </div>
+                    <div class="author-info">
+                        <h4>Michael T.</h4>
+                        <p>Traveled to Tokyo</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    The attention to detail in their 3D tours is incredible. We could even see the exact view from our balcony and check if there was enough shade - which was important for our toddler.
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Jessica & Mark L.">
+                    </div>
+                    <div class="author-info">
+                        <h4>Jessica & Mark L.</h4>
+                        <p>Traveled to Bali</p>
+                        <div class="rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter" id="contact">
+        <h2>Ready for Your Next Adventure?</h2>
+        <p>Subscribe to our newsletter for exclusive deals, new destination reveals, and travel tips straight to your inbox.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Your email address">
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Wanderlust</h3>
+                <p>Making travel planning effortless through innovative 3D technology and personalized service.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#destinations">Destinations</a></li>
+                    <li><a href="#tours">3D Tours</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#">About Us</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Support</h3>
+                <ul class="footer-links">
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Booking Guide</a></li>
+                    <li><a href="#">Cancellation Policy</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact Us</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Travel Street, Suite 456<br>San Francisco, CA 94107</p>
+                <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                <p><i class="fas fa-envelope"></i> hello@wanderlust.com</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Wanderlust Adventures. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // 3D card effect
+        const cards = document.querySelectorAll('.card-3d');
+        
+        cards.forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const xAxis = (window.innerWidth / 2 - e.pageX) / 20;
+                const yAxis = (window.innerHeight / 2 - e.pageY) / 20;
+                card.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+            });
+            
+            // Reset when mouse leaves
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'rotateY(0deg) rotateX(0deg)';
+                card.style.transition = 'all 0.5s ease';
+                setTimeout(() => {
+                    card.style.transition = '';
+                }, 500);
+            });
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

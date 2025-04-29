@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JWELAERY - Luxury Jewelry Store</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary-color: #d4af37; /* Gold */
+            --secondary-color: #333;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+        
+        body {
+            font-family: 'Playfair Display', serif;
+            background-color: #fafafa;
+        }
+        
+        .bg-primary-custom {
+            background-color: var(--primary-color);
+        }
+        
+        .text-primary-custom {
+            color: var(--primary-color);
+        }
+        
+        .navbar {
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            background: url('https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center;
+            background-size: cover;
+            height: 80vh;
+            position: relative;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        
+        .jewelry-card {
+            transition: transform 0.3s;
+            border: none;
+            border-radius: 0;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+        
+        .jewelry-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .jewelry-card img {
+            transition: transform 0.5s;
+        }
+        
+        .jewelry-card:hover img {
+            transform: scale(1.05);
+        }
+        
+        .price {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .testimonial-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-color);
+        }
+        
+        footer {
+            background-color: var(--dark-color);
+            color: white;
+        }
+        
+        .social-icon {
+            color: white;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            transition: color 0.3s;
+        }
+        
+        .social-icon:hover {
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <span class="text-primary-custom">JWE</span>LAERY
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#collections">Collections</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+                <div class="ms-lg-3 mt-3 mt-lg-0">
+                    <a href="#" class="btn btn-outline-dark me-2"><i class="bi bi-search"></i></a>
+                    <a href="#" class="btn btn-outline-dark me-2"><i class="bi bi-person"></i></a>
+                    <a href="#" class="btn btn-outline-dark position-relative">
+                        <i class="bi bi-cart"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            3
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-lg-6 text-white position-relative">
+                    <h1 class="display-3 fw-bold mb-4">Timeless Elegance</h1>
+                    <p class="lead mb-4">Discover our exquisite collection of handcrafted jewelry that tells your unique story.</p>
+                    <a href="#collections" class="btn btn-light btn-lg me-2">Shop Now</a>
+                    <a href="#about" class="btn btn-outline-light btn-lg">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Categories -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-gem fs-1 text-primary-custom mb-3"></i>
+                            <h3 class="h5">Diamond Collection</h3>
+                            <p>Our finest diamonds selected for their exceptional quality and brilliance.</p>
+                            <a href="#" class="btn btn-sm btn-outline-dark">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-heart fs-1 text-primary-custom mb-3"></i>
+                            <h3 class="h5">Gold Masterpieces</h3>
+                            <p>Luxurious gold jewelry crafted with precision and timeless design.</p>
+                            <a href="#" class="btn btn-sm btn-outline-dark">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 text-center p-4">
+                        <div class="card-body">
+                            <i class="bi bi-flower1 fs-1 text-primary-custom mb-3"></i>
+                            <h3 class="h5">Silver Treasures</h3>
+                            <p>Elegant silver pieces that combine modern style with classic beauty.</p>
+                            <a href="#" class="btn btn-sm btn-outline-dark">Explore</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collections -->
+    <section id="collections" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Our Collections</h2>
+                <p class="text-muted">Handcrafted with passion and precision</p>
+            </div>
+            
+            <ul class="nav justify-content-center mb-4">
+                <li class="nav-item">
+                    <a class="nav-link active text-dark fw-bold" href="#">All</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Rings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Necklaces</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Earrings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-dark" href="#">Bracelets</a>
+                </li>
+            </ul>
+            
+            <div class="row g-4">
+                <!-- Product 1 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card jewelry-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Diamond Ring">
+                            <div class="position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm btn-light rounded-circle"><i class="bi bi-heart"></i></button>
+                            </div>
+                            <div class="position-absolute bottom-0 start-0 end-0 bg-white p-2 text-center">
+                                <button class="btn btn-dark btn-sm w-100">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Eternity Diamond Ring</h5>
+                            <p class="card-text text-muted">18K White Gold</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$2,499</span>
+                                <div class="text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card jewelry-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Gold Necklace">
+                            <div class="position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm btn-light rounded-circle"><i class="bi bi-heart"></i></button>
+                            </div>
+                            <div class="position-absolute bottom-0 start-0 end-0 bg-white p-2 text-center">
+                                <button class="btn btn-dark btn-sm w-100">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Golden Pendant Necklace</h5>
+                            <p class="card-text text-muted">24K Yellow Gold</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$1,799</span>
+                                <div class="text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-half"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card jewelry-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1611591437281-4608be122683?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Pearl Earrings">
+                            <div class="position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm btn-light rounded-circle"><i class="bi bi-heart"></i></button>
+                            </div>
+                            <div class="position-absolute bottom-0 start-0 end-0 bg-white p-2 text-center">
+                                <button class="btn btn-dark btn-sm w-100">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Pearl Drop Earrings</h5>
+                            <p class="card-text text-muted">South Sea Pearls</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$1,299</span>
+                                <div class="text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card jewelry-card">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" class="card-img-top" alt="Diamond Bracelet">
+                            <div class="position-absolute top-0 end-0 p-2">
+                                <button class="btn btn-sm btn-light rounded-circle"><i class="bi bi-heart"></i></button>
+                            </div>
+                            <div class="position-absolute bottom-0 start-0 end-0 bg-white p-2 text-center">
+                                <button class="btn btn-dark btn-sm w-100">Add to Cart</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Diamond Tennis Bracelet</h5>
+                            <p class="card-text text-muted">Platinum</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="price">$3,599</span>
+                                <div class="text-warning">
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star-fill"></i>
+                                    <i class="bi bi-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <a href="#" class="btn btn-outline-dark btn-lg">View All Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <img src="https://images.unsplash.com/photo-1602173574767-37ac01994b2a?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="About Us" class="img-fluid rounded">
+                </div>
+                <div class="col-lg-6">
+                    <h2 class="fw-bold mb-4">Our Story</h2>
+                    <p class="lead">Crafting exquisite jewelry since 1985</p>
+                    <p>JWELAERY was founded with a passion for creating timeless pieces that celebrate life's most precious moments. Our master jewelers combine traditional techniques with modern innovation to bring you jewelry of exceptional quality and beauty.</p>
+                    <p>Each piece in our collection is meticulously crafted using only the finest materials, from ethically sourced diamonds to premium precious metals. We take pride in our attention to detail and commitment to excellence.</p>
+                    <div class="mt-4">
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-check-circle-fill text-primary-custom me-3 fs-4"></i>
+                            <div>
+                                <h5 class="mb-1">Ethically Sourced</h5>
+                                <p class="text-muted mb-0">All our materials come from responsible sources</p>
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <i class="bi bi-check-circle-fill text-primary-custom me-3 fs-4"></i>
+                            <div>
+                                <h5 class="mb-1">Handcrafted Quality</h5>
+                                <p class="text-muted mb-0">Each piece is made with precision and care</p>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <i class="bi bi-check-circle-fill text-primary-custom me-3 fs-4"></i>
+                            <div>
+                                <h5 class="mb-1">Lifetime Warranty</h5>
+                                <p class="text-muted mb-0">We stand behind the quality of our jewelry</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">What Our Customers Say</h2>
+                <p class="text-muted">Trusted by thousands of happy customers</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Customer" class="testimonial-img mb-3">
+                            <div class="text-warning mb-3">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="card-text mb-4">"The diamond ring I purchased for my anniversary is absolutely stunning. The craftsmanship is exceptional and it sparkles like nothing I've ever seen before."</p>
+                            <h5 class="card-title mb-1">Sarah Johnson</h5>
+                            <p class="text-muted small">New York</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Customer" class="testimonial-img mb-3">
+                            <div class="text-warning mb-3">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-half"></i>
+                            </div>
+                            <p class="card-text mb-4">"I've bought several pieces from JWELAERY over the years and they never disappoint. The quality is consistently outstanding and their customer service is top-notch."</p>
+                            <h5 class="card-title mb-1">Michael Chen</h5>
+                            <p class="text-muted small">Los Angeles</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Customer" class="testimonial-img mb-3">
+                            <div class="text-warning mb-3">
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                                <i class="bi bi-star-fill"></i>
+                            </div>
+                            <p class="card-text mb-4">"The pearl earrings I received as a gift are simply beautiful. They're elegant, comfortable to wear, and have become my go-to accessory for special occasions."</p>
+                            <h5 class="card-title mb-1">Emily Rodriguez</h5>
+                            <p class="text-muted small">Chicago</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="py-5 bg-primary-custom text-white">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <h2 class="fw-bold mb-3">Join Our Newsletter</h2>
+                    <p class="mb-4">Subscribe to receive updates, access to exclusive deals, and be the first to know about our new collections.</p>
+                    <form class="row g-2 justify-content-center">
+                        <div class="col-md-8">
+                            <input type="email" class="form-control form-control-lg" placeholder="Your email address">
+                        </div>
+                        <div class="col-md-4">
+                            <button type="submit" class="btn btn-dark btn-lg w-100">Subscribe</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0">
+                    <h2 class="fw-bold mb-4">Contact Us</h2>
+                    <p class="mb-4">Have questions or need assistance? Our team is here to help you find the perfect piece of jewelry.</p>
+                    
+                    <div class="d-flex mb-4">
+                        <i class="bi bi-geo-alt-fill text-primary-custom me-3 fs-4"></i>
+                        <div>
+                            <h5 class="mb-1">Visit Us</h5>
+                            <p class="text-muted mb-0">123 Jewelry Avenue, New York, NY 10001</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <i class="bi bi-telephone-fill text-primary-custom me-3 fs-4"></i>
+                        <div>
+                            <h5 class="mb-1">Call Us</h5>
+                            <p class="text-muted mb-0">+1 (212) 555-0199</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex mb-4">
+                        <i class="bi bi-envelope-fill text-primary-custom me-3 fs-4"></i>
+                        <div>
+                            <h5 class="mb-1">Email Us</h5>
+                            <p class="text-muted mb-0">info@jwelaery.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex">
+                        <i class="bi bi-clock-fill text-primary-custom me-3 fs-4"></i>
+                        <div>
+                            <h5 class="mb-1">Hours</h5>
+                            <p class="text-muted mb-0">Monday - Friday: 9AM - 7PM<br>Saturday: 10AM - 6PM<br>Sunday: Closed</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-7">
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body p-4">
+                            <h3 class="card-title mb-4">Send Us a Message</h3>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="name" required>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="email" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="email" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="subject" class="form-label">Subject</label>
+                                        <input type="text" class="form-control" id="subject" required>
+                                    </div>
+                                    <div class="col-12">
+                                        <label for="message" class="form-label">Message</label>
+                                        <textarea class="form-control" id="message" rows="5" required></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button type="submit" class="btn btn-dark">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h3 class="text-white mb-4"><span class="text-primary-custom">JWE</span>LAERY</h3>
+                    <p class="text-muted">JWELAERY offers exquisite handcrafted jewelry that celebrates life's precious moments with timeless elegance and exceptional quality.</p>
+                    <div class="mt-4">
+                        <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-pinterest"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="text-white mb-4">Shop</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">All Jewelry</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Rings</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Necklaces</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Earrings</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Bracelets</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">New Arrivals</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="text-white mb-4">About</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Our Story</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Craftsmanship</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Materials</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Sustainability</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Press</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Careers</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-4">
+                    <h5 class="text-white mb-4">Customer Care</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Contact Us</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">FAQs</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Shipping</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Returns</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Size Guide</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Jewelry Care</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2">
+                    <h5 class="text-white mb-4">Legal</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Terms of Service</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Privacy Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Cookie Policy</a></li>
+                        <li class="mb-2"><a href="#" class="text-muted text-decoration-none">Accessibility</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <hr class="my-4 bg-secondary">
+            
+            <div class="row">
+                <div class="col-md-6 text-center text-md-start">
+                    <p class="text-muted mb-0">&copy; 2023 JWELAERY. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <img src="https://via.placeholder.com/300x50?text=Payment+Methods" alt="Payment Methods" class="img-fluid" style="height: 30px;">
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

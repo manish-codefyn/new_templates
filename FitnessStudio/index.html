@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fitness Studio - 3D Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+
+        #scene-container {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li {
+            margin: 0 20px;
+        }
+
+        header nav ul li a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        header nav ul li a:hover {
+            color: #007bff;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #007bff;
+            margin-right: 50px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: #333;
+            margin-top: 100vh;
+            background-color: #f5f5f5;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #007bff;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 70%;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .cta-button {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            pointer-events: auto;
+        }
+
+        .cta-button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        #trainers {
+            background-color: #fff;
+        }
+
+        #trainers .trainer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        #trainers .trainer-card {
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #f0f0f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        #trainers .trainer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        #trainers .trainer-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 5px solid #007bff;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #trainers .trainer-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #trainers .trainer-specialty {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        #contact {
+            background-color: #f5f5f5;
+        }
+
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        #contact .form-group {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        #contact .form-group label {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #contact .form-control {
+            width: calc(100% - 20px);
+            padding: 12px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        #contact .form-control:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+
+        #contact textarea.form-control {
+            resize: vertical;
+            height: 150px;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header nav ul li {
+                margin: 0 10px;
+            }
+
+            header nav ul li a {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .section p {
+                font-size: 1rem;
+                max-width: 90%;
+            }
+
+            .cta-button {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+
+            #trainers .trainer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #trainers .trainer-card {
+                padding: 20px;
+            }
+
+            #trainers .trainer-name {
+                font-size: 1.2rem;
+            }
+
+            #trainers .trainer-specialty {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="scene-container"></div>
+    <div class="overlay">
+        <header>
+            <nav>
+                <a href="#" class="logo">Fitness Studio</a>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#trainers">Trainers</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="home" class="section">
+            <h2>Welcome to a New You</h2>
+            <p>
+                We are dedicated to helping you achieve your fitness goals with personalized training and expert guidance.
+                Join our community and transform your life.
+            </p>
+            <a href="#contact" class="cta-button">Get Started</a>
+        </section>
+    </div>
+
+    <section id="trainers" class="section">
+        <h2>Our Trainers</h2>
+        <div class="trainer-grid">
+            <div class="trainer-card">
+                <img src="https://via.placeholder.com/150" alt="Trainer 1" class="trainer-image">
+                <h3 class="trainer-name">John Smith</h3>
+                <p class="trainer-specialty">Personal Training, Strength Training</p>
+                <p class="trainer-description">
+                    John has 10+ years of experience in helping clients reach their fitness goals.
+                </p>
+            </div>
+            <div class="trainer-card">
+                <img src="https://via.placeholder.com/150" alt="Trainer 2" class="trainer-image">
+                <h3 class="trainer-name">Jane Doe</h3>
+                <p class="trainer-specialty">Yoga, Pilates, Wellness Coaching</p>
+                <p class="trainer-description">
+                    Jane specializes in holistic fitness and wellness, focusing on mind and body balance.
+                </p>
+            </div>
+            <div class="trainer-card">
+                <img src="https://via.placeholder.com/150" alt="Trainer 3" class="trainer-image">
+                <h3 class="trainer-name">Mike Johnson</h3>
+                <p class="trainer-specialty">CrossFit, HIIT, Sports Conditioning</p>
+                <p class="trainer-description">
+                    Mike is a certified CrossFit trainer with a passion for high-intensity training.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" class="form-control" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="cta-button">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Fitness Studio. All rights reserved.</p>
+    </footer>
+
+    <script>
+       const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.getElementById('scene-container').appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(10, 10, 5);
+        directionalLight.castShadow = true;
+        directionalLight.shadow.mapSize.width = 1024;
+        directionalLight.shadow.mapSize.height = 1024;
+        directionalLight.shadow.camera.near = 0.5;
+        directionalLight.shadow.camera.far = 20;
+        scene.add(directionalLight);
+
+        // 3D Geometry
+        const geometry = new THREE.SphereGeometry(5, 32, 32);
+        const material = new THREE.MeshPhysicalMaterial({
+            color: 0x007bff,
+            metalness: 0.8,
+            roughness: 0.2,
+            clearcoat: 1,
+            clearcoatRoughness: 0.1,
+            reflectivity: 0.7,
+        });
+        const sphere = new THREE.Mesh(geometry, material);
+        sphere.castShadow = true;
+        sphere.receiveShadow = true;
+        scene.add(sphere);
+
+        const planeGeometry = new THREE.PlaneGeometry(50, 50);
+        const planeMaterial = new THREE.MeshStandardMaterial({ color: 0xeeeeee, roughness: 0.9, metalness: 0.1 });
+        const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+        plane.rotation.x = -Math.PI / 2;
+        plane.receiveShadow = true;
+        scene.add(plane);
+
+        // Camera Position
+        camera.position.z = 10;
+
+        // Orbit Controls
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.1;
+        controls.rotateSpeed = 0.5;
+
+        // Animation
+        function animate() {
+            requestAnimationFrame(animate);
+
+            sphere.rotation.x += 0.01;
+            sphere.rotation.y += 0.01;
+            sphere.rotation.z += 0.01;
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Responsive adjustments
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

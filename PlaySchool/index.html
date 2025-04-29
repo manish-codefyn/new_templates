@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunshine Play School | Nurturing Little Minds</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- AOS Animation CSS -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: 'Baloo 2', cursive;
+      scroll-behavior: smooth;
+      background: #fff5e6;
+    }
+    .navbar {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+    }
+    .navbar-brand span {
+      color: #ff6f00;
+    }
+    section {
+      padding: 80px 0;
+    }
+    .hero {
+      background: linear-gradient(rgba(255, 223, 186, 0.8), rgba(255, 214, 165, 0.8)), url('https://source.unsplash.com/1600x900/?kids,school') center/cover no-repeat;
+      height: 100vh;
+      color: #333;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #ff6f00;
+    }
+    .hero p {
+      font-size: 1.5rem;
+      margin-top: 20px;
+    }
+    .section-title {
+      text-align: center;
+      font-weight: 700;
+      margin-bottom: 50px;
+      color: #ff6f00;
+    }
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #ff6f00;
+      margin: 20px auto 0;
+      border-radius: 2px;
+    }
+    .card {
+      border: none;
+      border-radius: 15px;
+      background: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+    }
+    .card:hover {
+      transform: translateY(-10px);
+    }
+    .btn-primary {
+      background-color: #ff6f00;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #e65c00;
+    }
+    .contact-form {
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    footer {
+      background: #ff6f00;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">Sunshine<span>School</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#activities">Activities</a></li>
+        <li class="nav-item"><a class="nav-link" href="#admission">Admission</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+  <div class="container" data-aos="fade-up">
+    <h1>Welcome to Sunshine Play School</h1>
+    <p>Where Little Dreams Take Big Flights!</p>
+    <a href="#admission" class="btn btn-primary mt-4">Join Us</a>
+  </div>
+</section>
+
+<!-- About Section -->
+<section id="about">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-down">About Us</h2>
+    <div class="row align-items-center">
+      <div class="col-lg-6" data-aos="fade-right">
+        <img src="https://source.unsplash.com/600x400/?children,learning" class="img-fluid rounded" alt="About Sunshine School">
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <p>Sunshine Play School is a magical place where creativity, learning, and happiness go hand in hand! We provide a nurturing environment designed to promote the emotional, physical, and cognitive growth of your child.</p>
+        <ul class="list-unstyled mt-3">
+          <li><i class="bi bi-sun-fill text-warning me-2"></i> Safe & Fun Environment</li>
+          <li><i class="bi bi-heart-fill text-danger me-2"></i> Experienced Caring Staff</li>
+          <li><i class="bi bi-palette-fill text-primary me-2"></i> Creative Learning Programs</li>
+          <li><i class="bi bi-star-fill text-success me-2"></i> Holistic Child Development</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Activities Section -->
+<section id="activities" class="bg-light">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-down">Fun Activities</h2>
+    <div class="row g-4">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+        <div class="card text-center p-4">
+          <i class="bi bi-brush-fill display-4 text-primary"></i>
+          <h5 class="mt-3">Arts & Crafts</h5>
+          <p>Unleashing imagination through colors, paper, and creativity.</p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card text-center p-4">
+          <i class="bi bi-music-note-beamed display-4 text-success"></i>
+          <h5 class="mt-3">Music & Dance</h5>
+          <p>Rhythms that make little feet tap with joy and laughter.</p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+        <div class="card text-center p-4">
+          <i class="bi bi-book-half display-4 text-warning"></i>
+          <h5 class="mt-3">Storytelling</h5>
+          <p>Building language skills and expanding imagination through stories.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Admission Section -->
+<section id="admission">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-down">Admissions Open</h2>
+    <p class="text-center" data-aos="fade-up">Give your child the best start in life. Admissions are open for the upcoming session. Hurry, limited seats!</p>
+    <div class="text-center mt-4" data-aos="fade-up">
+      <a href="#contact" class="btn btn-primary">Apply Now</a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="bg-light">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-down">Get In Touch</h2>
+    <div class="row">
+      <div class="col-lg-6" data-aos="fade-right">
+        <form class="contact-form">
+          <div class="mb-3">
+            <label for="name" class="form-label">Child's Name*</label>
+            <input type="text" class="form-control" id="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="parent" class="form-label">Parent's Name*</label>
+            <input type="text" class="form-control" id="parent" required>
+          </div>
+          <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number*</label>
+            <input type="tel" class="form-control" id="phone" required>
+          </div>
+          <div class="mb-3">
+            <label for="message" class="form-label">Message*</label>
+            <textarea class="form-control" id="message" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Send Inquiry</button>
+        </form>
+      </div>
+      <div class="col-lg-6" data-aos="fade-left">
+        <h5>Contact Information</h5>
+        <p><i class="bi bi-geo-alt-fill me-2"></i>123 Rainbow Street, Happy Town</p>
+        <p><i class="bi bi-envelope-fill me-2"></i>info@sunshineschool.com</p>
+        <p><i class="bi bi-phone-fill me-2"></i>+123 456 7890</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <p>&copy; 2025 Sunshine Play School. All Rights Reserved.</p>
+</footer>
+
+<!-- Bootstrap 5 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- AOS Animation JS -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+</script>
+</body>
+</html>

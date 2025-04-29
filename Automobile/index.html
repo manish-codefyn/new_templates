@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automobile Excellence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            overflow-x: hidden;
+        }
+
+        #scene-container {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        header nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            margin: 0;
+            padding: 0;
+        }
+
+        header nav ul li {
+            margin: 0 20px;
+        }
+
+        header nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 5px;
+        }
+
+        header nav ul li a:hover {
+            color: #00b8e4;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #00b8e4;
+            margin-right: 50px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            pointer-events: auto;
+        }
+
+        .section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px;
+            text-align: center;
+            color: #fff;
+            margin-top: 100vh;
+            background-color: #121212;
+        }
+
+        .section h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: #00b8e4;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 70%;
+            margin-bottom: 30px;
+            color: #eee;
+        }
+
+        .cta-button {
+            background-color: #00b8e4;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            pointer-events: auto;
+        }
+
+        .cta-button:hover {
+            background-color: #00869e;
+            transform: translateY(-2px);
+        }
+
+        #models {
+            background-color: #1f1f1f;
+        }
+
+        #models .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        #models .model-card {
+            padding: 30px;
+            border-radius: 10px;
+            background-color: #2a2a2a;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        #models .model-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        #models .model-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        #models .model-name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        #models .model-description {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #eee;
+        }
+
+        #about {
+            background-color: #121212;
+        }
+
+        #about-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        #about-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #eee;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        footer {
+            background-color: #1f1f1f;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header nav ul li {
+                margin: 0 10px;
+            }
+
+            header nav ul li a {
+                font-size: 1rem;
+            }
+
+            .section h2 {
+                font-size: 2rem;
+            }
+
+            .section p {
+                font-size: 1rem;
+                max-width: 90%;
+            }
+
+            .cta-button {
+                font-size: 1rem;
+                padding: 12px 25px;
+            }
+
+            #models .model-grid {
+                grid-template-columns: 1fr;
+            }
+
+            #models .model-card {
+                padding: 20px;
+            }
+
+            #models .model-name {
+                font-size: 1.2rem;
+            }
+
+            #models .model-description {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="scene-container"></div>
+    <div class="overlay">
+        <header>
+            <nav>
+                <a href="#" class="logo">AutoDrive</a>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#models">Models</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section id="home" class="section">
+            <h2>Experience the Future of Driving</h2>
+            <p>
+                Discover the thrill of innovation with our cutting-edge automobiles.
+                We combine performance, luxury, and sustainability to redefine your driving experience.
+            </p>
+            <a href="#models" class="cta-button">Explore Our Models</a>
+        </section>
+    </div>
+
+    <section id="models" class="section">
+        <h2>Our Models</h2>
+        <div class="model-grid">
+            <div class="model-card">
+                <img src="https://via.placeholder.com/400x200" alt="Model 1" class="model-image">
+                <h3 class="model-name">Elegance</h3>
+                <p class="model-description">
+                    A perfect blend of style and performance, designed for the discerning driver.
+                </p>
+            </div>
+            <div class="model-card">
+                <img src="https://via.placeholder.com/400x200" alt="Model 2" class="model-image">
+                <h3 class="model-name">Velocity</h3>
+                <p class="model-description">
+                    Unleash the power within.  Experience breathtaking speed and agility.
+                </p>
+            </div>
+            <div class="model-card">
+                <img src="https://via.placeholder.com/400x200" alt="Model 3" class="model-image">
+                <h3 class="model-name">EcoDrive</h3>
+                <p class="model-description">
+                    Drive the future with our eco-friendly electric vehicle.  Sustainable and stylish.
+                </p>
+            </div>
+            <div class="model-card">
+                <img src="https://via.placeholder.com/400x200" alt="Model 4" class="model-image">
+                <h3 class="model-name">Lux</h3>
+                <p class="model-description">
+                   Experience the ultimate in luxury and comfort.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <h2>About Us</h2>
+        <div id="about-content">
+            <p>
+                We are a pioneering automobile company dedicated to pushing the boundaries of innovation.
+                With a passion for excellence, we strive to create vehicles that inspire and elevate the driving experience.
+                Our commitment to sustainability drives us to develop eco-friendly solutions for a better future.
+            </p>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" class="form-control" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="cta-button">Send Message</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 AutoDrive. All rights reserved.</p>
+    </footer>
+    <script>
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+            75,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.getElementById('scene-container').appendChild(renderer.domElement);
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.6); 
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 10, 7.5);
+        directionalLight.castShadow = true;
+        scene.add(directionalLight);
+
+        // Simple 3D Object (Rotating Cube Example)
+        const geometry = new THREE.BoxGeometry();
+        const material = new THREE.MeshStandardMaterial({ color: 0x00b8e4 });
+        const cube = new THREE.Mesh(geometry, material);
+        cube.castShadow = true;
+        cube.receiveShadow = true;
+        scene.add(cube);
+
+        camera.position.z = 5;
+
+        // Controls (if needed)
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.enableZoom = false;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+
+            cube.rotation.x += 0.005;
+            cube.rotation.y += 0.005;
+
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        animate();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LUXE | Modern E-Commerce</title>
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Glassmorphism Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">
+        <i class="fas fa-gem me-2"></i>LUXE
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#products">Shop</a></li>
+          <li class="nav-item"><a class="nav-link" href="#deals">Deals</a></li>
+          <li class="nav-item"><a class="nav-link" href="#testimonials">Reviews</a></li>
+        </ul>
+        <div class="d-flex ms-3">
+          <a href="#" class="btn btn-sm btn-glass me-2"><i class="fas fa-search"></i></a>
+          <a href="#" class="btn btn-sm btn-glass me-2"><i class="fas fa-heart"></i></a>
+          <a href="#" class="btn btn-sm btn-glass position-relative">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent">3</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section with Gradient Background -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6" data-aos="fade-right">
+          <h1 class="display-3 fw-bold mb-4">Summer Collection 2023</h1>
+          <p class="lead mb-4">Discover premium fashion with express delivery</p>
+          <a href="#products" class="btn btn-accent btn-lg px-4">Shop Now <i class="fas fa-arrow-right ms-2"></i></a>
+        </div>
+        <div class="col-lg-6" data-aos="fade-left">
+          <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+               alt="Fashion Model" 
+               class="img-fluid rounded-3 shadow-lg hero-img">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section id="products" class="py-5">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="text-center mb-1">Our Products</h2>
+        <p class="text-center text-muted mb-5">Curated selection of premium items</p>
+      </div>
+      <div class="row g-4">
+        <!-- Product 1 -->
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+          <div class="product-card">
+            <div class="product-badge bg-danger">-30%</div>
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1546868871-7041f2a55e12?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80" 
+                   alt="Smart Watch" 
+                   class="img-fluid">
+            </div>
+            <div class="product-details">
+              <h4>Luxe Smart Watch</h4>
+              <div class="product-price">
+                <span class="price-new">$129.99</span>
+                <span class="price-old">$185.00</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-sm btn-accent">Add to Cart</button>
+                <button class="btn btn-sm btn-outline-accent"><i class="far fa-heart"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 2 -->
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+          <div class="product-card">
+            <div class="product-badge bg-success">New</div>
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                   alt="Headphones" 
+                   class="img-fluid">
+            </div>
+            <div class="product-details">
+              <h4>Pro Headphones</h4>
+              <div class="product-price">
+                <span class="price-new">$89.99</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-sm btn-accent">Add to Cart</button>
+                <button class="btn btn-sm btn-outline-accent"><i class="far fa-heart"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 3 -->
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+          <div class="product-card">
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1399&q=80" 
+                   alt="Smartphone" 
+                   class="img-fluid">
+            </div>
+            <div class="product-details">
+              <h4>Ultra Phone X</h4>
+              <div class="product-price">
+                <span class="price-new">$699.99</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-sm btn-accent">Add to Cart</button>
+                <button class="btn btn-sm btn-outline-accent"><i class="far fa-heart"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Product 4 -->
+        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="400">
+          <div class="product-card">
+            <div class="product-badge bg-warning">Bestseller</div>
+            <div class="product-thumb">
+              <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                   alt="Running Shoes" 
+                   class="img-fluid">
+            </div>
+            <div class="product-details">
+              <h4>Sport Runner Pro</h4>
+              <div class="product-price">
+                <span class="price-new">$120.00</span>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-sm btn-accent">Add to Cart</button>
+                <button class="btn btn-sm btn-outline-accent"><i class="far fa-heart"></i></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="py-5 bg-light">
+    <div class="container">
+      <div class="section-header" data-aos="fade-up">
+        <h2 class="text-center mb-1">What Our Customers Say</h2>
+        <p class="text-center text-muted mb-5">Trusted by thousands worldwide</p>
+      </div>
+      <div class="row g-4">
+        <!-- Testimonial 1 -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <div class="testimonial-card">
+            <div class="testimonial-rating">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+            </div>
+            <p class="testimonial-text">"The fastest delivery I've ever experienced! Ordered a watch and got it in 15 minutes."</p>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/44.jpg" 
+                   alt="Sarah J." 
+                   class="rounded-circle">
+              <div>
+                <h6>Sarah J.</h6>
+                <small>New York</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 2 -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <div class="testimonial-card">
+            <div class="testimonial-rating">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star-half-alt text-warning"></i>
+            </div>
+            <p class="testimonial-text">"Amazing quality products. The headphones sound better than expected!"</p>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" 
+                   alt="Michael T." 
+                   class="rounded-circle">
+              <div>
+                <h6>Michael T.</h6>
+                <small>London</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Testimonial 3 -->
+        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+          <div class="testimonial-card">
+            <div class="testimonial-rating">
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+              <i class="fas fa-star text-warning"></i>
+            </div>
+            <p class="testimonial-text">"Customer service is outstanding. They helped me exchange a product with no hassle."</p>
+            <div class="testimonial-author">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" 
+                   alt="Emma R." 
+                   class="rounded-circle">
+              <div>
+                <h6>Emma R.</h6>
+                <small>Paris</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Section -->
+  <section class="newsletter-section py-5 bg-dark text-white">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6 text-center" data-aos="fade-up">
+          <h3 class="mb-3">Subscribe to Our Newsletter</h3>
+          <p class="mb-4">Get 10% off your first order and updates on new arrivals.</p>
+          <form class="newsletter-form">
+            <div class="input-group">
+              <input type="email" class="form-control" placeholder="Your email address">
+              <button class="btn btn-accent" type="submit">Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-5">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4" data-aos="fade-up">
+          <h5 class="mb-4"><i class="fas fa-gem me-2"></i>LUXE</h5>
+          <p>Premium e-commerce with lightning-fast delivery and exceptional quality.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-4" data-aos="fade-up" data-aos-delay="100">
+          <h6 class="mb-4">Shop</h6>
+          <ul class="list-unstyled">
+            <li><a href="#">Men</a></li>
+            <li><a href="#">Women</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Electronics</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-4" data-aos="fade-up" data-aos-delay="200">
+          <h6 class="mb-4">Help</h6>
+          <ul class="list-unstyled">
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Shipping</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-4" data-aos="fade-up" data-aos-delay="300">
+          <h6 class="mb-4">Contact Us</h6>
+          <p><i class="fas fa-map-marker-alt me-2"></i> 123 Fashion Ave, New York</p>
+          <p><i class="fas fa-phone me-2"></i> +1 (555) 123-4567</p>
+          <p><i class="fas fa-envelope me-2"></i> hello@luxe.com</p>
+        </div>
+      </div>
+      <hr class="my-4 bg-light">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="mb-0">&copy; 2023 LUXE. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <img src="https://via.placeholder.com/300x50?text=Payment+Methods" 
+               alt="Payment Methods" 
+               class="img-fluid payment-methods">
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to Top Button -->
+  <a href="#" class="back-to-top" data-aos="fade-up">
+    <i class="fas fa-arrow-up"></i>
+  </a>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true
+    });
+    
+    // Back to Top Button
+    const backToTop = document.querySelector('.back-to-top');
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTop.classList.add('show');
+      } else {
+        backToTop.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+<style>
+    /* Color Variables */
+:root {
+  --primary: #0f172a;
+  --secondary: #1e293b;
+  --accent: #6366f1;
+  --light: #f8fafc;
+  --dark: #020617;
+  --gray: #94a3b8;
+}
+
+/* Base Styles */
+body {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--dark);
+  background-color: #f9fafb;
+  padding-top: 80px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+/* Glassmorphism Effect */
+.navbar {
+  background: rgba(15, 23, 42, 0.8) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.btn-glass {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.btn-glass:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: white;
+  padding: 100px 0;
+}
+
+.hero-img {
+  border: 10px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Product Cards */
+.product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.product-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  z-index: 1;
+}
+
+.product-thumb {
+  height: 200px;
+  overflow: hidden;
+}
+
+.product-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.product-card:hover .product-thumb img {
+  transform: scale(1.1);
+}
+
+.product-details {
+  padding: 20px;
+}
+
+.product-price .price-new {
+  font-weight: bold;
+  color: var(--accent);
+  font-size: 18px;
+}
+
+.product-price .price-old {
+  text-decoration: line-through;
+  color: var(--gray);
+  font-size: 14px;
+  margin-left: 8px;
+}
+
+.product-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-accent {
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.btn-accent:hover {
+  background-color: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.btn-outline-accent {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  transition: all 0.3s ease;
+}
+
+.btn-outline-accent:hover {
+  background-color: var(--accent);
+  color: white;
+}
+
+/* Testimonials */
+.testimonial-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.testimonial-rating {
+  color: #f59e0b;
+  margin-bottom: 15px;
+}
+
+.testimonial-text {
+  font-style: italic;
+  margin-bottom: 20px;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+}
+
+.testimonial-author img {
+  width: 50px;
+  height: 50px;
+  margin-right: 15px;
+}
+
+/* Newsletter */
+.newsletter-section {
+  background: linear-gradient(135deg, var(--secondary), var(--primary));
+}
+
+.newsletter-form .form-control {
+  height: 50px;
+  border: none;
+}
+
+.newsletter-form .btn {
+  padding: 0 20px;
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary);
+  color: white;
+}
+
+footer a {
+  color: var(--gray);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: white;
+}
+
+.social-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  margin-right: 10px;
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  background: var(--accent);
+  transform: translateY(-3px);
+}
+
+.payment-methods {
+  max-height: 30px;
+}
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--accent);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: #4f46e5;
+  transform: translateY(-5px);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 80px 0;
+    text-align: center;
+  }
+  
+  .hero-img {
+    margin-top: 30px;
+  }
+}
+</style>
+</html>
